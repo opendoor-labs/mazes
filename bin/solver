@@ -1,0 +1,123 @@
+#!/usr/bin/env ruby
+
+APP_PATH = File.expand_path('../config/application', __FILE__)
+require_relative '../config/environment'
+
+def solve(maze)
+  state = SolutionChecker::MazeState.new(maze)
+  solution = ''
+
+  def find_exit(state)
+    state_maze = state.instance_variable_get('@maze')
+    exits = state.instance_variable_get('@exits')
+    distances = Array.new(state_maze.length) { Array.new(state_maze[0].length) }
+    start = [state.instance_variable_get('@x'), state.instance_variable_get('@y')]
+
+    distances[start[0]][start[1]] = 0
+    remaining = [start]
+    while remaining.length > 0
+      current = remaining.shift
+      if exits.include?(current)
+        current_distance = distances[current[0]][current[1]]
+        path = ''
+        while current_distance > 0
+          if distances[current[0] - 1][current[1]] == current_distance - 1
+            path += 'D'
+            current[0] -= 1;
+          elsif distances[current[0] + 1][current[1]] == current_distance - 1
+            path += 'U'
+            current[0] += 1;
+          elsif distances[current[0]][current[1] - 1] == current_distance - 1
+            path += 'R'
+            current[1] -= 1;
+          else
+            path += 'L'
+            current[1] += 1;
+          end
+          current_distance -= 1;
+        end
+
+        path.reverse!
+        path.each_char do |move|
+          dx, dy = case move
+          when 'U'
+            [-1, 0]
+          when 'D'
+            [1, 0]
+          when 'L'
+            [0, -1]
+          when 'R'
+            [0, 1]
+          end
+          state.move(dx, dy)
+        end
+
+        return path
+      end
+
+      dx = current[0] - start[0]
+      dy = current[1] - start[1]
+      if !distances[current[0] - 1][current[1]] && state.can_move?(dx - 1, dy)
+        distances[current[0] - 1][current[1]] = distances[current[0]][current[1]] + 1
+        remaining << [current[0] - 1, current[1]]
+      end
+      if !distances[current[0] + 1][current[1]] && state.can_move?(dx + 1, dy)
+        distances[current[0] + 1][current[1]] = distances[current[0]][current[1]] + 1
+        remaining << [current[0] + 1, current[1]]
+      end
+      if !distances[current[0]][current[1] - 1] && state.can_move?(dx, dy - 1)
+        distances[current[0]][current[1] - 1] = distances[current[0]][current[1]] + 1
+        remaining << [current[0], current[1] - 1]
+      end
+      if !distances[current[0]][current[1] + 1] && state.can_move?(dx, dy + 1)
+        distances[current[0]][current[1] + 1] = distances[current[0]][current[1]] + 1
+        remaining << [current[0], current[1] + 1]
+      end
+    end
+  end
+
+  while !state.on_exit?
+    path = find_exit(state)
+    raise 'Cannot find exit' unless path.present?
+
+    solution += path
+  end
+
+  solution
+end
+
+next_url = 'http://localhost:5000/levels/START'
+while next_url.present?
+  puts "GET #{next_url}"
+  response = Excon.get(next_url)
+  if response.status != 200
+    raise "Bad response: #{response.status}"
+  end
+
+  json = JSON.parse(response.body)
+  maze = json['maze']
+  solve_url = json['solve_url']
+
+  solution = solve(maze)
+
+  puts "PUT #{solve_url} solution: #{solution}"
+  response = Excon.put(
+    solve_url,
+    body: { solution: solution }.to_json,
+    headers: { 'Content-Type' => 'application/json' }
+  )
+  if response.status != 200
+    raise "Bad response: #{response.status}"
+  end
+
+  json = JSON.parse(response.body)
+  result = json['result']
+  next_url = json['next_url']
+  message = json['message']
+
+  if result != 'completed'
+    raise "Sorry I have failed you: #{message}"
+  end
+end
+
+puts "Done! #{message}"
