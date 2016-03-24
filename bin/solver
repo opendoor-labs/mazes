@@ -86,7 +86,7 @@ def solve(maze)
   solution
 end
 
-next_url = 'http://localhost:5000/levels/START'
+next_url = 'https://rd-mazes.herokuapp.com/levels/START'
 while next_url.present?
   puts "GET #{next_url}"
   response = Excon.get(next_url)
