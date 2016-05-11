@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <title>Mazes</title>
+  </head>
+  <body>
+    <h1>Mazes</h1>
+    <p>This a service that gives you a maze, and you get to try to solve it. If you get it right,
+      you get another slightly harder maze. If you get it wrong, you have to start over.</p>
+    <p>The format of a maze is a multiline string representing a 2D maze. Each character of the string
+      represents the state of the maze at the point:</p>
+    <ul>
+      <li>' ' - An open space that you can pass through</li>
+      <li>'W' - A wall that you cannot pass through</li>
+      <li>'S' - The starting location, also an open space</li>
+      <li>'E' - An exit to the maze, there can be multiple exits (but you only need to reach one)</li>
+    </ul>
+    <p>The format of a solution is a string containing a series of directional moves:</p>
+    <ul>
+      <li>'U' - move up one square</li>
+      <li>'D' - move down one square</li>
+      <li>'L' - move left one square</li>
+      <li>'R' - move right one square</li>
+    </ul>
+    <p>When you request a maze, you will get back a JSON object containing two fields:
+      <code>maze</code> and <code>solve_url</code>. <code>maze</code> is the string representation of the
+      maze. <code>solve_url</code> is where you will post your solution to get the next maze.</p>
+    <p>When you attempt solve a maze, you will get back a JSON object containing two fields:
+      <code>result</code> and either <code>message</code> or <code>next_url</code>.
+      <code>result</code> will be either "completed" or "failed". If the maze is "completed", then
+      <code>next_url</code> will contain the URL to get the next maze. If that was the last maze,
+      instead of a URL, you will get back a <code>message</code>. If the maze is "failed", then
+      <code>message</code> will be a message telling you why your solution did not complete the maze.</p>
+    <p>The format for requesting a maze is to make a <code>GET</code> request to
+      <code>/levels/:name?password=:password</code>. The name for the first level is
+      <a href='/levels/START'>START</a> and it has no password. When you receive a <code>solve_url</code>
+      or a <code>next_url</code> it will already contain the password in the URL.</p>
+    <p>The format for attempting to solve a maze is to make a <code>PUT</code> request to the
+      <code>solve_url</code>, appending your solution as an additional param called
+      <code>solution</code>, either as a query param or in the body. For example, you could make a
+      <code>PUT</code> to <code>/levels/:name/solve?password=:password&solution=LLUDR</code></p>
+    <p>Good luck!</p>
+  </body>
+</html>

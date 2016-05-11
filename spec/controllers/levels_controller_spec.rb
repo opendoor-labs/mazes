@@ -6,12 +6,12 @@ describe LevelsController do
 
     subject { get :show, name: level.name, password: level.password }
 
-    it 'returns the levels maze and the solve url' do
+    it 'returns the levels input and the solve url' do
       subject
       expect(response).to be_ok
 
       json = JSON.parse(response.body)
-      expect(json['maze']).to eq(level.maze)
+      expect(json['input']).to eq(level.input)
       expect(json['solve_url']).to eq(solve_level_url(name: level.name))
     end
 
@@ -34,7 +34,7 @@ describe LevelsController do
 
     context 'correct solution' do
       before do
-        expect(SolutionChecker).to receive(:solves?).with(level.maze, 'PLZ?').and_return([true, nil])
+        expect(SolutionChecker).to receive(:solves?).with(level.input, 'PLZ?').and_return([true, nil])
       end
 
       it 'returns the next levels url' do
@@ -72,7 +72,7 @@ describe LevelsController do
 
     context 'incorrect solution' do
       before do
-        expect(SolutionChecker).to receive(:solves?).with(level.maze, 'PLZ?').and_return([false, 'BAD'])
+        expect(SolutionChecker).to receive(:solves?).with(level.input, 'PLZ?').and_return([false, 'BAD'])
       end
 
       it 'returns the failure status and the error message' do

@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <title>Adding</title>
+  </head>
+  <body>
+    <h1>Adding</h1>
+    <p>Ziyad sucks at math so he needs someone to help him add stuff.</p>
+    <p>The format of the input is a multiline string representing a sequence of integers to add.</p>
+    <p>Each line in the string is a single integer to add.</p>
+    <p>When you request a sequence of numbers to add, you will get back a JSON object containing two fields:
+      <code>input</code> and <code>solve_url</code>. <code>input</code> is the string representation of the
+      sequence of numbers to add. <code>solve_url</code> is where you will post your solution to get the next sequence of numbers to add.</p>
+    <p>When you attempt solve a sequence of numbers to add, you will get back a JSON object containing two fields:
+      <code>result</code> and either <code>message</code> or <code>next_url</code>.
+      <code>result</code> will be either "completed" or "failure". If the sequence of numbers to add is "completed", then
+      <code>next_url</code> will contain the URL to get the next sequence of numbers to add. If that was the last sequence of numbers to add,
+      instead of a URL, you will get back a <code>message</code>. If the sequence of numbers to add is "failed", then
+      <code>message</code> will be a message telling you why your solution did not complete the sequence of numbers to add.</p>
+    <p>The format for requesting a sequence of numbers to add is to make a <code>GET</code> request to
+      <code>/levels/:name/:stage/?password=:password</code>. The name for the first level is
+      <a href='/levels/adding'>adding</a> and it has no stage or password. When you receive a <code>solve_url</code>
+      or a <code>next_url</code> it will already contain the password in the URL.</p>
+    <p>The format for attempting to solve a sequence of numbers to add is to make a <code>PUT</code> request to the
+      <code>solve_url</code>, appending your solution as an additional param called
+      <code>solution</code>, either as a query param or in the body. For example, you could make a
+      <code>PUT</code> to <code>/levels/:name/:stage/solve?password=:password&solution=:solution</code></p>
+    <p>Good luck!</p>
+  </body>
+</html>

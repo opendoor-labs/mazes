@@ -1,18 +1,17 @@
-Level.find_or_initialize_by(index: 0).tap do |level|
+# interview question name: mazes
+Level.find_or_initialize_by(name: 'maze', index: 0).tap do |level|
   level.update!(
-    name: 'START',
-    maze: <<-MAZE
+    input: <<-INPUT
 WWWWW
 WS EW
 WWWWW
-MAZE
+INPUT
   )
 end
 
-Level.find_or_initialize_by(index: 1).tap do |level|
+Level.find_or_initialize_by(name: 'maze', index: 1).tap do |level|
   level.assign_attributes(
-    name: 'SPIRAL',
-    maze: <<-MAZE
+    input: <<-INPUT
 WWWWWWWWWWWWWW
 WS           W
 WWWWWWWWWWWW W
@@ -24,15 +23,14 @@ W W        W W
 W WWWWWWWWWW W
 W            W
 WWWWWWWWWWWWWW
-MAZE
+INPUT
   )
   level.generate_new_password!
 end
 
-Level.find_or_initialize_by(index: 2).tap do |level|
+Level.find_or_initialize_by(name: 'maze', index: 2).tap do |level|
   level.assign_attributes(
-    name: 'EXITS',
-    maze: <<-MAZE
+    input: <<-INPUT
 WWWWWWWWWWWWWWWW
 WEW            W
 WWWWW WWWWWWW WW
@@ -40,15 +38,14 @@ WS      WEWEW  W
 WW WWWWWWWW WW W
 W       WEW    W
 WWWWWWWWWWWWWWWW
-MAZE
+INPUT
   )
   level.generate_new_password!
 end
 
-Level.find_or_initialize_by(index: 3).tap do |level|
+Level.find_or_initialize_by(name: 'maze', index: 3).tap do |level|
   level.assign_attributes(
-    name: 'OPEN',
-    maze: <<-MAZE
+    input: <<-INPUT
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 WS                                                                                                W
 W                                                                                                 W
@@ -149,16 +146,15 @@ W                                                                               
 W                                                                                                 W
 W                                                                                                EW
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-MAZE
+INPUT
   )
   level.generate_new_password!
 end
 
-Level.find_or_initialize_by(index: 4).tap do |level|
+Level.find_or_initialize_by(name: 'maze', index: 4).tap do |level|
   level.assign_attributes(
-    name: 'HARD',
     message: 'Good job! If you enjoyed the challenge, check out /advanced',
-    maze: <<-MAZE
+    input: <<-INPUT
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
 WS W           W     W        W           W           W                       W     W     W                          W                    W           W
 W  W  WWWWWWW  W  W  W  WWWW  WWWW  WWWW  W  WWWWWWW  W  WWWWWWWWWWWWWWWWWWW  W  W  W  W  WWWWWWWWWWWWWWWWWWWWWWWWW  W  WWWWWWWWWW  WWWW  W  WWWWWWW  W
@@ -260,7 +256,76 @@ W                 W     W  W           W  W  W           W              W       
 WWWW  WWWWWWWWWWWWW  WWWW  WWWWWWWWWW  W  W  W  WWWWWWWWWW  WWWWWWW  WWWW  WWWW  WWWWWWW  W  W  W  W  W  WWWWWWW  WWWW  WWWWWWW  WWWW  WWWW  WWWW  W  W
 W                 W                 W     W     W           W           W     W              W     W     W           W              W        W     W EW
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
-MAZE
+INPUT
+  )
+  level.generate_new_password!
+end
+
+# interview question name: adding
+Level.find_or_initialize_by(name: 'adding', index: 0).tap do |level|
+  level.update!(
+    input: <<-INPUT
+1
+2
+INPUT
+  )
+end
+
+Level.find_or_initialize_by(name: 'adding', index: 1).tap do |level|
+  level.assign_attributes(
+    input: <<-INPUT
+1
+2
+3
+INPUT
+  )
+  level.generate_new_password!
+end
+
+# interview question name: jumping game
+Level.find_or_initialize_by(name: 'jumping', index: 0).tap do |level|
+  level.update!(
+    input: <<-INPUT
+2
+3
+1
+1
+4
+INPUT
+  )
+end
+
+Level.find_or_initialize_by(name: 'jumping', index: 1).tap do |level|
+  level.assign_attributes(
+    input: <<-INPUT
+3
+2
+1
+1
+4
+INPUT
+  )
+  level.generate_new_password!
+end
+
+Level.find_or_initialize_by(name: 'jumping', index: 2).tap do |level|
+  level.assign_attributes(
+    input: <<-INPUT
+1
+1
+1
+1
+1
+INPUT
+  )
+  level.generate_new_password!
+end
+
+Level.find_or_initialize_by(name: 'jumping', index: 3).tap do |level|
+  level.assign_attributes(
+    input: <<-INPUT
+5
+INPUT
   )
   level.generate_new_password!
 end

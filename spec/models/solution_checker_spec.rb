@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe SolutionChecker do
-  let(:simple_maze) { "WWWWW\nWS EW\nWWWWW\n" }
+  let(:simple_input) { "WWWWW\nWS EW\nWWWWW\n" }
 
   describe 'solves?' do
-    subject { SolutionChecker.solves?(maze, solution) }
+    subject { SolutionChecker.solves?(input, solution) }
 
-    context 'simple maze' do
-      let(:maze) { simple_maze }
+    context 'simple input' do
+      let(:input) { simple_input }
 
       context 'correct solution' do
         let(:solution) { 'RR' }
@@ -67,14 +67,14 @@ describe SolutionChecker do
   end
 
   describe 'MazeState' do
-    let(:state) { SolutionChecker::MazeState.new(maze) }
+    let(:state) { SolutionChecker::MazeState.new(input) }
 
-    context 'simple maze' do
-      let(:maze) { simple_maze }
+    context 'simple input' do
+      let(:input) { simple_input }
 
       describe 'initialize' do
-        it 'parses the maze correctly' do
-          expect(state.instance_variable_get('@maze')).to eq([
+        it 'parses the input correctly' do
+          expect(state.instance_variable_get('@input')).to eq([
             ['W', 'W', 'W', 'W', 'W'],
             ['W', ' ', ' ', ' ', 'W'],
             ['W', 'W', 'W', 'W', 'W']
@@ -102,7 +102,7 @@ describe SolutionChecker do
           expect(state.can_move?(1, 0)).to eq(false)
         end
 
-        it 'returns false if the space is outside of the maze' do
+        it 'returns false if the space is outside of the input' do
           expect(state.can_move?(2, 0)).to eq(false)
         end
       end
