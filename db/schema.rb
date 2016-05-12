@@ -17,10 +17,9 @@ ActiveRecord::Schema.define(version: 20160323182131) do
   enable_extension "plpgsql"
 
   create_table "levels", force: :cascade do |t|
-    t.integer "index",    null: false
-    t.string  "name",     null: false
-    t.string  "input",    null: false
-    t.string  "password"
+    t.integer "index",   null: false
+    t.string  "name",    null: false
+    t.string  "input",   null: false
     t.string  "message"
   end
 

@@ -6,18 +6,16 @@ class LevelsController < ActionController::Base
       index = 0
     end
 
-    level = Level.find_by!(name: params[:name], password: params[:password], index: index)
-    level.generate_new_password! if level.password.present?
+    level = Level.find_by!(name: params[:name], index: index)
 
     render json: {
       input: level.input,
-      solve_url: solve_level_url(name: level.name, password: level.password, index: index)
+      solve_url: solve_level_url(name: level.name, index: index)
     }
   end
 
   def solve
-    level = Level.find_by!(name: params[:name], password: params[:password], index: params[:index])
-    level.generate_new_password! if level.password.present?
+    level = Level.find_by!(name: params[:name], index: params[:index])
 
     solved, error = SolutionChecker.solves?(level.name, level.input, params[:solution])
 
@@ -26,7 +24,7 @@ class LevelsController < ActionController::Base
       if next_level.present?
         render json: {
           result: :completed,
-          next_url: level_url(name: next_level.name, password: next_level.password, index: next_level.index)
+          next_url: level_url(name: next_level.name, index: next_level.index)
         }
       else
         render json: {
