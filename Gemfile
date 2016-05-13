@@ -7,6 +7,8 @@ gem 'pry-rails'
 gem 'puma'
 gem 'rails'
 gem 'tilt'
+gem 'redis'
+gem 'clockwork'
 
 group :production do
   gem 'rails_12factor'

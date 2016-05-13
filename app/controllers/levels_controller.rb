@@ -15,8 +15,16 @@ class LevelsController < ActionController::Base
   end
 
   def solve
-    level = Level.find_by!(name: params[:name], index: params[:index])
+    redis_token = Redis.new.get('token')
 
+    unless params[:token].present? && params[:token] == redis_token
+      render json: {
+        input: :unauthorized,
+        message: 'not authorized'
+      }, status: :unauthorized
+    end
+
+    level = Level.find_by!(name: params[:name], index: params[:index])
     solved, error = SolutionChecker.solves?(level.name, level.input, params[:solution])
 
     if solved
