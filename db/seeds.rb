@@ -1,5 +1,5 @@
-# interview question name: mazes
-Level.find_or_initialize_by(name: 'maze', index: 0).tap do |level|
+# interview question name: mazess
+Level.find_or_initialize_by(name: 'mazes', index: 0).tap do |level|
   level.update!(
     input: <<-INPUT
 WWWWW
@@ -9,7 +9,7 @@ INPUT
   )
 end
 
-Level.find_or_initialize_by(name: 'maze', index: 1).tap do |level|
+Level.find_or_initialize_by(name: 'mazes', index: 1).tap do |level|
   level.update!(
     input: <<-INPUT
 WWWWWWWWWWWWWW
@@ -27,7 +27,7 @@ INPUT
   )
 end
 
-Level.find_or_initialize_by(name: 'maze', index: 2).tap do |level|
+Level.find_or_initialize_by(name: 'mazes', index: 2).tap do |level|
   level.update!(
     input: <<-INPUT
 WWWWWWWWWWWWWWWW
@@ -41,7 +41,7 @@ INPUT
   )
 end
 
-Level.find_or_initialize_by(name: 'maze', index: 3).tap do |level|
+Level.find_or_initialize_by(name: 'mazes', index: 3).tap do |level|
   level.update!(
     input: <<-INPUT
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
@@ -148,7 +148,7 @@ INPUT
   )
 end
 
-Level.find_or_initialize_by(name: 'maze', index: 4).tap do |level|
+Level.find_or_initialize_by(name: 'mazes', index: 4).tap do |level|
   level.update!(
     message: 'Good job! If you enjoyed the challenge, check out /advanced',
     input: <<-INPUT
