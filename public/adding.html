@@ -17,7 +17,7 @@
       instead of a URL, you will get back a <code>message</code>. If the sequence of numbers to add is "failed", then
       <code>message</code> will be a message telling you why your solution did not complete the sequence of numbers to add.</p>
     <p>The format for requesting a sequence of numbers to add is to make a <code>GET</code> request to
-      <code>/levels/:name/:stage</code>. The initial stage is
+      <code>/levels/:name</code>. The initial stage is
       <a href='/levels/adding'>adding</a>.
     <p>The format for attempting to solve a sequence of numbers to add is to make a <code>PUT</code> request to the
       <code>solve_url</code>, appending your solution as an additional param called
